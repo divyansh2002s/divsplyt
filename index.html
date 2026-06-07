@@ -1,0 +1,3372 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DivSplyt</title>
+  <link rel="icon" type="image/png" href="assets/logo-1.png" />
+  <link rel="apple-touch-icon" href="assets/logo-1.png" />
+
+  <style>
+    .brand-logo-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo-img {
+  height: 72px;
+  width: auto;
+  max-width: 260px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+}
+
+html[data-theme="light"] .brand-logo-img {
+  filter: drop-shadow(0 8px 18px rgba(15, 23, 42, 0.18));
+}
+
+@media (max-width: 700px) {
+  .brand-logo-img {
+    height: 56px;
+    max-width: 220px;
+  }
+}
+.brand-wordmark {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow:
+    0 1px 0 #cfd6e6,
+    0 3px 10px rgba(255, 255, 255, 0.25);
+}
+
+.brand-white {
+  color: #ffffff;
+}
+
+.brand-gold {
+  color: #f7c948;
+  text-shadow:
+    0 1px 0 #a16207,
+    0 0 12px rgba(247, 201, 72, 0.65);
+}
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --green: #16a34a;
+      --red: #dc2626;
+      --amber: #d97706;
+      --border: #d0d5dd;
+      --soft-blue: #eff6ff;
+      --soft-green: #ecfdf3;
+      --soft-red: #fef2f2;
+      --soft-amber: #fffbeb;
+      --soft-gray: #f8fafc;
+      --shadow: 0 10px 30px rgba(16, 24, 40, 0.10);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: white;
+      padding: 18px;
+      box-shadow: 0 4px 18px rgba(16, 24, 40, 0.16);
+    }
+
+    .header-inner {
+      max-width: 1250px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      opacity: 0.92;
+      font-size: 13px;
+    }
+
+    .header-actions,
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    main {
+      max-width: 1250px;
+      margin: 22px auto;
+      padding: 0 16px 60px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 6px 0 14px;
+      line-height: 1.45;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      background: white;
+      min-width: 0;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid #bfdbfe;
+      border-color: var(--primary);
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: white;
+    }
+
+    .btn-light {
+      background: #eef2ff;
+      color: #1e40af;
+    }
+
+    .btn-white {
+      background: white;
+      color: #1e40af;
+    }
+
+    .btn-danger {
+      background: var(--soft-red);
+      color: var(--red);
+    }
+
+    .btn-small {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: minmax(290px, 0.75fr) minmax(0, 1.25fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 950px) {
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .summary-box {
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--soft-green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .summary-box.blue {
+      background: var(--soft-blue);
+      border-color: #bfdbfe;
+    }
+
+    .summary-box.amber {
+      background: var(--soft-amber);
+      border-color: #fde68a;
+    }
+
+    .summary-box .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .summary-box .value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .error,
+    .success-note {
+      position: fixed;
+      top: 82px;
+      right: 18px;
+      z-index: 100;
+      max-width: min(420px, calc(100vw - 36px));
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: none;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+    }
+
+    .error {
+      background: var(--soft-red);
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .success-note {
+      background: var(--soft-green);
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      background: #fff;
+      line-height: 1.5;
+    }
+
+    .instruction-list {
+      margin: 0;
+      padding-left: 22px;
+      line-height: 1.85;
+    }
+
+    .participant-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .quick-add {
+      padding: 14px;
+      background: var(--soft-amber);
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .quick-add-grid {
+      display: grid;
+      grid-template-columns: minmax(230px, 1fr) auto;
+      gap: 16px;
+      align-items: end;
+    }
+
+    @media (max-width: 650px) {
+      .quick-add-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .payer-section {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #ffffff;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .payer-section-header {
+      padding: 14px 16px;
+      background: #eff6ff;
+      border-bottom: 1px solid #bfdbfe;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) {
+      .payer-section-header {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .payer-title {
+      font-weight: bold;
+      color: #1e3a8a;
+      overflow-wrap: anywhere;
+    }
+
+    .payer-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .payer-body {
+      display: none;
+      padding: 2px 0;
+      background: #ffffff;
+    }
+
+    .payer-section.open .payer-body {
+      display: block;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eef2ff;
+      color: #1e40af;
+      border: 1px solid #c7d2fe;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    .expense-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin: 14px 16px;
+      background: #fcfcfd;
+    }
+
+    .expense-head {
+      display: grid;
+      grid-template-columns: minmax(240px, 1.25fr) minmax(150px, 0.55fr) auto;
+      gap: 18px;
+      align-items: end;
+    }
+
+    @media (max-width: 780px) {
+      .expense-head {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .split-box {
+      margin-top: 14px;
+      padding: 13px;
+      border-radius: 12px;
+      background: var(--soft-blue);
+      border: 1px solid #bfdbfe;
+    }
+
+    .split-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 11px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip input {
+      width: auto;
+      margin: 0;
+    }
+
+    .small-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 12px 14px;
+      text-align: center;
+      font-size: 14px;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #eff6ff;
+      font-weight: bold;
+    }
+
+    td:first-child,
+    th:first-child {
+      text-align: left;
+      font-weight: bold;
+      background: #fffbeb;
+      min-width: 150px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .positive {
+      color: var(--red);
+      font-weight: bold;
+    }
+
+    .negative {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .zero {
+      color: var(--muted);
+    }
+
+    .verification-box {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .verification-box.open {
+      display: block;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 50;
+      display: none;
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+
+    .drawer-overlay.open {
+      display: flex;
+    }
+
+    .drawer-panel {
+      width: 75vw;
+      max-width: 1050px;
+      min-width: 720px;
+      height: 100vh;
+      background: var(--bg);
+      box-shadow: -10px 0 35px rgba(15, 23, 42, 0.25);
+      overflow: auto;
+      padding: 18px;
+      animation: slideIn 0.18s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(30px);
+        opacity: 0.7;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .drawer-panel {
+        width: 100vw;
+        min-width: 0;
+      }
+    }
+
+    .drawer-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .drawer-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 20px;
+    }
+
+    /* Drawer responsiveness fixes */
+    .drawer-panel {
+      width: min(92vw, 1380px);
+      max-width: 1380px;
+      min-width: 0;
+    }
+
+    .drawer-panel .top-grid {
+      grid-template-columns: minmax(340px, 0.42fr) minmax(520px, 0.58fr);
+      gap: 24px;
+    }
+
+    .drawer-panel .quick-add-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .drawer-panel .quick-add-grid button {
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .drawer-panel .expense-head {
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 210px);
+      gap: 18px;
+    }
+
+    .drawer-panel .expense-head > div:last-child {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+
+    .drawer-panel .expense-card {
+      overflow: visible;
+    }
+
+    .drawer-panel .chip {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 1180px) {
+      .drawer-panel .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .drawer-panel {
+        width: 100vw;
+      }
+
+      .drawer-panel .expense-head {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    /* =========================
+       DivSplyt Light / Dark Theme
+       ========================= */
+
+    html[data-theme="light"] {
+      --bg: linear-gradient(135deg, #f8fafc 0%, #edf2ff 52%, #fff7ed 100%);
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #101828;
+      --muted: #667085;
+      --primary: #2457d6;
+      --primary-dark: #1d4ed8;
+      --green: #16a34a;
+      --red: #dc2626;
+      --amber: #d97706;
+      --border: rgba(15, 23, 42, 0.14);
+      --soft-blue: #eef5ff;
+      --soft-green: #ecfdf3;
+      --soft-red: #fef2f2;
+      --soft-amber: #fff7df;
+      --soft-gray: #f8fafc;
+      --input-bg: rgba(255, 255, 255, 0.95);
+      --input-text: #101828;
+      --header-bg: linear-gradient(135deg, #071633 0%, #133b8a 48%, #1d4ed8 100%);
+      --header-border: rgba(255, 255, 255, 0.16);
+      --logo-white: #ffffff;
+      --logo-silver: #e7edf7;
+      --logo-gold: #f8c445;
+      --shadow: 0 16px 42px rgba(15, 23, 42, 0.12);
+      --table-head: #eef5ff;
+      --table-first: #fff8e6;
+      --chip-bg: rgba(255, 255, 255, 0.95);
+      --overlay: rgba(15, 23, 42, 0.58);
+    }
+
+    html[data-theme="dark"] {
+      --bg:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 36%),
+        radial-gradient(circle at top right, rgba(248, 196, 69, 0.13), transparent 30%),
+        linear-gradient(135deg, #0b1430 0%, #111c3c 48%, #101827 100%);
+      --card: rgba(17, 28, 58, 0.88);
+      --text: #f2f6ff;
+      --muted: #bac6d9;
+      --primary: #4f8df7;
+      --primary-dark: #326ee6;
+      --green: #2fd36b;
+      --red: #fb7185;
+      --amber: #f8c445;
+      --border: rgba(226, 232, 240, 0.22);
+      --soft-blue: rgba(79, 141, 247, 0.18);
+      --soft-green: rgba(47, 211, 107, 0.16);
+      --soft-red: rgba(251, 113, 133, 0.15);
+      --soft-amber: rgba(248, 196, 69, 0.15);
+      --soft-gray: rgba(148, 163, 184, 0.13);
+      --input-bg: rgba(24, 36, 70, 0.92);
+      --input-text: #f8fafc;
+      --header-bg:
+        radial-gradient(circle at 42% 0%, rgba(248, 196, 69, 0.16), transparent 28%),
+        linear-gradient(135deg, #091327 0%, #162a52 50%, #121d33 100%);
+      --header-border: rgba(248, 196, 69, 0.23);
+      --logo-white: #f8fafc;
+      --logo-silver: #e2e8f0;
+      --logo-gold: #f8c445;
+      --shadow: 0 16px 42px rgba(0, 0, 0, 0.26);
+      --table-head: rgba(79, 141, 247, 0.22);
+      --table-first: rgba(248, 196, 69, 0.14);
+      --chip-bg: rgba(24, 36, 70, 0.88);
+      --overlay: rgba(4, 8, 18, 0.62);
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      background-attachment: fixed;
+      color: var(--text);
+    }
+
+    header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--header-border);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.20);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .brand-wordmark {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 950;
+      letter-spacing: clamp(4px, 0.65vw, 9px);
+      line-height: 0.98;
+      text-transform: uppercase;
+      color: var(--logo-white);
+      user-select: none;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.25),
+        0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-white {
+      color: var(--logo-silver);
+      background: linear-gradient(180deg, #ffffff 0%, var(--logo-silver) 48%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .brand-gold {
+      color: var(--logo-gold);
+      background: linear-gradient(180deg, #fff4b8 0%, var(--logo-gold) 45%, #b77910 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 14px rgba(248, 196, 69, 0.45),
+        0 1px 0 rgba(91, 53, 0, 0.30);
+    }
+
+    .brand-subtitle {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      letter-spacing: 0.2px;
+    }
+
+    .card,
+    .drawer-panel {
+      background: var(--card);
+      border-color: var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .drawer-header {
+      background: var(--card);
+      border-color: var(--border);
+    }
+
+    .hint,
+    .small-text,
+    .payer-meta,
+    .summary-box .label {
+      color: var(--muted);
+    }
+
+    input,
+    select {
+      background: var(--input-bg);
+      color: var(--input-text);
+      border-color: var(--border);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    input::placeholder {
+      color: color-mix(in srgb, var(--muted) 78%, transparent);
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid color-mix(in srgb, var(--primary) 35%, transparent);
+      border-color: var(--primary);
+    }
+
+    .quick-add,
+    .summary-box.amber {
+      background: var(--soft-amber);
+      border-color: color-mix(in srgb, var(--amber) 38%, transparent);
+    }
+
+    .split-box,
+    .summary-box.blue {
+      background: var(--soft-blue);
+      border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+    }
+
+    .summary-box {
+      background: var(--soft-green);
+      border-color: color-mix(in srgb, var(--green) 35%, transparent);
+    }
+
+    .payer-section,
+    .expense-card,
+    .empty-state,
+    .table-wrap {
+      background: var(--card);
+      border-color: var(--border);
+    }
+
+    .payer-section-header {
+      background: var(--soft-blue);
+      border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+    }
+
+    .payer-title {
+      color: color-mix(in srgb, var(--primary) 65%, var(--text));
+    }
+
+    .payer-body {
+      background: transparent;
+    }
+
+    .chip,
+    .badge {
+      background: var(--chip-bg);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .badge {
+      color: color-mix(in srgb, var(--primary) 70%, var(--text));
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-green {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.22);
+    }
+
+    .btn-light,
+    .btn-white,
+    .btn-ghost {
+      background: var(--chip-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: var(--soft-red);
+      color: var(--red);
+      border: 1px solid color-mix(in srgb, var(--red) 28%, transparent);
+    }
+
+    .btn-theme {
+      position: relative;
+      background: linear-gradient(135deg, rgba(248, 196, 69, 0.20), rgba(255, 255, 255, 0.08));
+      color: #ffffff;
+      border: 1px solid rgba(248, 196, 69, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 18px rgba(0,0,0,0.16);
+      min-width: 116px;
+    }
+
+    html[data-theme="light"] .btn-theme {
+      background: rgba(255, 255, 255, 0.92);
+      color: #172033;
+      border-color: rgba(15, 23, 42, 0.16);
+    }
+
+    table {
+      color: var(--text);
+    }
+
+    th {
+      background: var(--table-head);
+      color: var(--text);
+    }
+
+    td:first-child,
+    th:first-child {
+      background: var(--table-first);
+    }
+
+    th,
+    td {
+      border-color: var(--border);
+    }
+
+    .drawer-overlay {
+      background: var(--overlay);
+    }
+
+    .success-note {
+      background: var(--soft-green);
+      color: color-mix(in srgb, var(--green) 70%, var(--text));
+      border-color: color-mix(in srgb, var(--green) 35%, transparent);
+    }
+
+    .error {
+      background: var(--soft-red);
+      color: color-mix(in srgb, var(--red) 75%, var(--text));
+      border-color: color-mix(in srgb, var(--red) 35%, transparent);
+    }
+
+    .positive {
+      color: var(--red);
+    }
+
+    .negative {
+      color: var(--green);
+    }
+
+    .zero {
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .header-actions button {
+        flex: 1 1 auto;
+      }
+    }
+
+
+    html[data-theme="dark"] .card,
+    html[data-theme="dark"] .drawer-panel {
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+    }
+
+    html[data-theme="dark"] .table-wrap,
+    html[data-theme="dark"] .payer-section,
+    html[data-theme="dark"] .expense-card {
+      background: rgba(17, 28, 58, 0.72);
+    }
+
+
+    /* Bigger clickable wordmark + logo header */
+    .brand.brand-layout {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 34px;
+      cursor: pointer;
+      user-select: none;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .brand.brand-layout:focus-visible {
+      outline: 2px solid var(--logo-gold);
+      outline-offset: 8px;
+      border-radius: 12px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: max-content;
+    }
+
+    .brand-logo-box {
+      width: 150px;
+      height: 105px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-img {
+      width: auto;
+      height: auto;
+      max-width: 150px;
+      max-height: 105px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.36));
+    }
+
+    html[data-theme="light"] .brand-logo-img {
+      filter: drop-shadow(0 9px 20px rgba(15, 23, 42, 0.20));
+    }
+
+    /* App-controlled modal for Clear All and keyboard refresh */
+    .app-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(2, 6, 23, 0.68);
+      backdrop-filter: blur(10px);
+    }
+
+    .app-modal-overlay.open {
+      display: flex;
+    }
+
+    .app-modal {
+      width: min(460px, 100%);
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+      padding: 24px;
+    }
+
+    .app-modal h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .app-modal p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .app-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .brand.brand-layout {
+        gap: 22px;
+      }
+
+      .brand-logo-box {
+        width: 138px;
+        height: 98px;
+      }
+
+      .brand-logo-img {
+        max-width: 138px;
+        max-height: 98px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .brand.brand-layout {
+        gap: 14px;
+      }
+
+      .brand-logo-box {
+        width: 104px;
+        height: 76px;
+      }
+
+      .brand-logo-img {
+        max-width: 104px;
+        max-height: 76px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .brand.brand-layout {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+
+    /* =========================
+       DivSplyt Feature Upgrade Layer
+       ========================= */
+
+    .ds-control-card { margin-top: 18px; }
+
+    .ds-control-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .ds-full { grid-column: 1 / -1; }
+
+    .ds-mini-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .ds-search-row {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) auto auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .ds-breakdown-list { display: grid; gap: 12px; }
+
+    .ds-breakdown-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: var(--chip-bg);
+    }
+
+    .ds-breakdown-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .ds-breakdown-meta {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .payment-status-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--chip-bg);
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    .payment-status-row input { width: auto; margin: 0; }
+    .payment-paid { opacity: 0.68; text-decoration: line-through; }
+
+    @media (max-width: 800px) {
+      .ds-control-grid,
+      .ds-search-row { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand brand-layout" onclick="goHomeFromBrand()" role="button" tabindex="0" onkeydown="handleBrandKey(event)" title="Go to home">
+        <div class="brand-text">
+          <h1 class="brand-wordmark">
+            <span class="brand-white">DIV</span><span class="brand-gold">S</span><span class="brand-white">PLYT</span>
+          </h1>
+          <p id="headerSubText" class="brand-subtitle">Split smarter. Settle faster.</p>
+        </div>
+
+        <div class="brand-logo-box">
+          <img id="brandLogo" class="brand-logo-img" src="assets/logo-1.png" alt="DivSplyt logo" />
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" id="themeToggleBtn" class="btn-theme" onclick="toggleTheme()">Dark Mode</button>
+        <button type="button" id="headerEditBtn" class="btn-white" style="display:none;" onclick="openEditor()">Edit Details</button>
+        <button type="button" class="btn-green" onclick="calculate()">Calculate Result</button>
+        <button type="button" id="headerClearBtn" class="btn-danger" onclick="showClearAllModal()">Clear All</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="errorBox" class="error"></div>
+    <div id="successBox" class="success-note"></div>
+
+    <section id="entryPage" class="page active">
+      <div class="top-grid">
+        <section>
+          <div class="card">
+            <h2>1. Participants</h2>
+            <p class="hint">Add everyone who joined the event. Names must be unique. Spreadsheet chaos starts with duplicate Rahuls.</p>
+
+            <div class="quick-add-grid">
+              <div>
+                <label>Participant Name</label>
+                <input id="newPersonName" type="text" placeholder="Enter name" />
+              </div>
+              <button type="button" class="btn-primary" onclick="addParticipant()">+ Add Person</button>
+            </div>
+
+            <div id="participantsList" style="margin-top: 16px;"></div>
+          </div>
+
+          <div class="card">
+            <h2>Quick Rules</h2>
+            <ul class="instruction-list">
+              <li><b>Paid and included:</b> add expense under payer, keep payer checked.</li>
+              <li><b>Paid but not included:</b> add expense under payer, untick payer.</li>
+              <li><b>Included but did not pay:</b> keep checked.</li>
+              <li><b>Not included:</b> untick.</li>
+              <li><b>Same item, different payer:</b> add another expense under that payer.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="card">
+            <h2>2. Expenses</h2>
+            <div class="quick-add">
+              <div class="quick-add-grid">
+                <div>
+                  <label>Add new expense paid by</label>
+                  <select id="quickPayerSelect"></select>
+                </div>
+                <button type="button" class="btn-primary" onclick="addExpenseFromQuickSelect()">+ Add Expense</button>
+              </div>
+            </div>
+
+            <div id="expensesByPayerList"></div>
+
+            <div class="action-row" style="margin-top: 16px;">
+              <button type="button" class="btn-green" onclick="calculate()">Calculate Result</button>
+              <button type="button" class="btn-light" onclick="loadDemoData()">Load Demo</button>
+              <button type="button" class="btn-light" onclick="saveData()">Save</button>
+              <button type="button" class="btn-light" onclick="loadData()">Load</button>
+              <button type="button" class="btn-danger" onclick="showClearAllModal()">Clear All</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="resultPage" class="page">
+      <div class="result-grid">
+        <div class="card">
+          <h2>Final Payment Instructions</h2>
+          <p class="hint">This is the main result. Payment amounts are rounded to whole numbers so people can actually pay them without decimal nonsense.</p>
+          <div id="instructionsOutput"></div>
+
+          <div class="action-row" style="margin-top: 16px;">
+            <button type="button" class="btn-primary" onclick="openEditor()">Edit Details</button>
+            <button type="button" class="btn-green" onclick="calculate()">Calculate Again</button>
+            <button type="button" class="btn-light" onclick="copyInstructions()">Copy Instructions</button>
+            <button type="button" class="btn-ghost" onclick="goToEntryPage()">Back to Full Entry Page</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Summary</h2>
+          <p class="hint">Quick check before the group chat turns into a court case.</p>
+
+          <div class="summary">
+            <div class="summary-box">
+              <div class="label">Total Expense</div>
+              <div id="totalExpenseBox" class="value">0</div>
+            </div>
+            <div class="summary-box blue">
+              <div class="label">People</div>
+              <div id="peopleCountBox" class="value">0</div>
+            </div>
+            <div class="summary-box amber">
+              <div class="label">Transactions</div>
+              <div id="transactionCountBox" class="value">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Settlement Matrix</h2>
+        <p class="hint">Left side person gets paid. Top person pays. Blank means no payment.</p>
+        <div id="settlementOutput"></div>
+      </div>
+
+      <div class="card">
+        <h2>Verification Table</h2>
+        <p class="hint">Hidden by default. Open it only when you want proof, because apparently trust has limits.</p>
+        <button type="button" id="toggleVerificationBtn" class="btn-light" onclick="toggleVerification()">Show Verification Table</button>
+
+        <div id="verificationBox" class="verification-box">
+          <p class="hint">Positive Net Payable = person has to pay. Negative Net Payable = person should receive.</p>
+          <div id="verificationOutput"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="drawerOverlay" class="drawer-overlay" onclick="closeEditorFromOverlay(event)">
+    <div class="drawer-panel" role="dialog" aria-modal="true">
+      <div class="drawer-header">
+        <div>
+          <h2>Edit Details</h2>
+          <div class="small-text">Same full editor, but inside a 3/4 panel after results are shown.</div>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-green" onclick="calculate()">Calculate</button>
+          <button type="button" class="btn-ghost" onclick="closeEditor()">Close</button>
+        </div>
+      </div>
+
+      <div class="top-grid">
+        <section>
+          <div class="card">
+            <h2>Participants</h2>
+            <div class="quick-add-grid">
+              <div>
+                <label>Participant Name</label>
+                <input id="drawerNewPersonName" type="text" placeholder="Enter name" />
+              </div>
+              <button type="button" class="btn-primary" onclick="addParticipantFromDrawer()">+ Add Person</button>
+            </div>
+
+            <div id="drawerParticipantsList" style="margin-top: 16px;"></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="card">
+            <h2>Expenses</h2>
+            <div class="quick-add">
+              <div class="quick-add-grid">
+                <div>
+                  <label>Add new expense paid by</label>
+                  <select id="drawerQuickPayerSelect"></select>
+                </div>
+                <button type="button" class="btn-primary" onclick="addExpenseFromDrawerQuickSelect()">+ Add Expense</button>
+              </div>
+            </div>
+
+            <div id="drawerExpensesByPayerList"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="appConfirmOverlay" class="app-modal-overlay" aria-hidden="true">
+    <div class="app-modal" role="dialog" aria-modal="true" aria-labelledby="appConfirmTitle">
+      <h2 id="appConfirmTitle">Clear everything?</h2>
+      <p id="appConfirmMessage">
+        This will delete all participants, expenses, saved browser data, and current results.
+        This cannot be undone.
+      </p>
+
+      <div class="app-modal-actions">
+        <button type="button" class="btn-ghost" onclick="hideAppConfirm()">Cancel</button>
+        <button type="button" id="appConfirmActionBtn" class="btn-danger" onclick="confirmClearAllData()">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Built for fair splitting without converting dinner into a finance department. Rare mercy.
+  </div>
+
+  <script>
+
+function setRandomLogo() {
+  setLogo("assets/logo-1.png");
+}
+
+function setLogo(src) {
+  const logo = document.getElementById("brandLogo");
+  if (!logo) return;
+
+  const preload = new Image();
+
+  preload.onload = function () {
+    logo.src = src;
+  };
+
+  preload.onerror = function () {
+    logo.src = "assets/logo-1.png";
+  };
+
+  preload.src = src;
+}
+
+function getWeightedLogo() {
+  const weightedLogos = [
+    "assets/logo-1.png",
+    "assets/logo-1.png",
+    "assets/logo-1.png",
+    "assets/logo-1.png",
+    "assets/logo-2.png",
+    "assets/logo-3.png",
+    "assets/logo-4.png"
+  ];
+
+  return weightedLogos[Math.floor(Math.random() * weightedLogos.length)];
+}
+
+let logoRotationTimer = null;
+
+function rotateLogoOnce() {
+  if (document.visibilityState !== "visible") return;
+  setLogo(getWeightedLogo());
+}
+
+function startLogoRotation() {
+  setLogo("assets/logo-1.png");
+
+  if (logoRotationTimer) {
+    clearInterval(logoRotationTimer);
+  }
+
+  logoRotationTimer = setInterval(rotateLogoOnce, 5 * 60 * 1000);
+}
+
+function stopLogoRotation() {
+  if (logoRotationTimer) {
+    clearInterval(logoRotationTimer);
+    logoRotationTimer = null;
+  }
+}
+
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "visible") {
+    startLogoRotation();
+  } else {
+    stopLogoRotation();
+  }
+});
+
+    const STORAGE_KEY = "easy_expense_splitter_ui_v3";
+
+    const THEME_STORAGE_KEY = "divsplyt_theme_preference";
+
+    function applyTheme(theme) {
+      const selectedTheme = theme === "light" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", selectedTheme);
+      localStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
+      updateThemeButton(selectedTheme);
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+      applyTheme(currentTheme === "dark" ? "light" : "dark");
+    }
+
+    function updateThemeButton(theme) {
+      const btn = document.getElementById("themeToggleBtn");
+      if (!btn) return;
+
+      btn.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
+      btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    }
+
+
+    let state = {
+      participants: [],
+      expenses: [],
+      expandedPayerIds: {}
+    };
+
+    let lastTransactions = [];
+    let lastPeople = [];
+    let lastSettlement = null;
+    let lastTotalExpense = 0;
+    let currentPage = "entry";
+
+    function goHomeFromBrand() {
+      closeEditor();
+      setPage("entry");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function handleBrandKey(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        goHomeFromBrand();
+      }
+    }
+
+
+    function makeId() {
+      return "id_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+    }
+
+    function showError(message) {
+      const box = document.getElementById("errorBox");
+      box.textContent = message;
+      box.style.display = "block";
+      document.getElementById("successBox").style.display = "none";
+    }
+
+    function showSuccess(message) {
+      const box = document.getElementById("successBox");
+      box.textContent = message;
+      box.style.display = "block";
+      document.getElementById("errorBox").style.display = "none";
+
+      setTimeout(() => {
+        box.style.display = "none";
+      }, 2400);
+    }
+
+    function clearMessages() {
+      document.getElementById("errorBox").style.display = "none";
+      document.getElementById("successBox").style.display = "none";
+    }
+
+    function setPage(page) {
+      currentPage = page;
+
+      document.getElementById("entryPage").classList.toggle("active", page === "entry");
+      document.getElementById("resultPage").classList.toggle("active", page === "result");
+      document.getElementById("headerEditBtn").style.display = page === "result" ? "inline-block" : "none";
+
+      const clearBtn = document.getElementById("headerClearBtn");
+      if (clearBtn) {
+        clearBtn.style.display = page === "entry" ? "inline-block" : "none";
+      }
+      const headerSubText = document.getElementById("headerSubText");
+      if (headerSubText) {
+        headerSubText.textContent =
+          page === "result"
+            ? "Results ready. Settle with fewer payments."
+            : "Split smarter. Settle faster.";
+      }
+    }
+
+    function goToEntryPage() {
+      closeEditor();
+      setPage("entry");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openEditor() {
+      renderDrawer();
+      document.getElementById("drawerOverlay").classList.add("open");
+      setTimeout(() => {
+        const input = document.getElementById("drawerNewPersonName");
+        if (input) input.focus();
+      }, 50);
+    }
+
+    function closeEditor() {
+      document.getElementById("drawerOverlay").classList.remove("open");
+    }
+
+    function closeEditorFromOverlay(event) {
+      if (event.target.id === "drawerOverlay") {
+        closeEditor();
+      }
+    }
+
+    function addParticipant() {
+      const input = document.getElementById("newPersonName");
+      addParticipantByName(input.value);
+      input.value = "";
+    }
+
+    function addParticipantFromDrawer() {
+      const input = document.getElementById("drawerNewPersonName");
+      addParticipantByName(input.value);
+      input.value = "";
+    }
+
+    function addParticipantByName(rawName) {
+      clearMessages();
+
+      const name = String(rawName || "").trim();
+
+      if (!name) {
+        showError("Enter a participant name.");
+        return;
+      }
+
+      const duplicate = state.participants.some(
+        p => p.name.trim().toLowerCase() === name.toLowerCase()
+      );
+
+      if (duplicate) {
+        showError("Duplicate name found. Use unique names only.");
+        return;
+      }
+
+      const person = {
+        id: makeId(),
+        name
+      };
+
+      state.participants.push(person);
+
+      state.expenses.forEach(expense => {
+        if (!expense.splitIds.includes(person.id)) {
+          expense.splitIds.push(person.id);
+        }
+      });
+
+      renderPreserveScroll();
+      showSuccess(`${name} added.`);
+    }
+
+    function updateParticipantName(personId, newName) {
+      const person = state.participants.find(p => p.id === personId);
+      if (!person) return;
+
+      person.name = newName;
+      renderQuickPayerSelects();
+      renderExpenseGroups();
+    }
+
+    function removeParticipant(personId) {
+      const person = state.participants.find(p => p.id === personId);
+      if (!person) return;
+
+      const paidExpenseCount = state.expenses.filter(e => e.payerId === personId).length;
+
+      let message = `Remove ${person.name}?`;
+
+      if (paidExpenseCount > 0) {
+        message += `\n\nThis will also delete ${paidExpenseCount} expense(s) paid by this person.`;
+      }
+
+      const ok = confirm(message);
+      if (!ok) return;
+
+      state.participants = state.participants.filter(p => p.id !== personId);
+
+      if (state.expandedPayerIds) {
+        delete state.expandedPayerIds[personId];
+      }
+
+      state.expenses = state.expenses
+        .filter(expense => expense.payerId !== personId)
+        .map(expense => ({
+          ...expense,
+          splitIds: expense.splitIds.filter(id => id !== personId)
+        }));
+
+      resetResultAfterEdit();
+      render();
+    }
+
+    function addExpenseFromQuickSelect() {
+      const select = document.getElementById("quickPayerSelect");
+      const payerId = select.value;
+
+      if (addExpenseForPayer(payerId)) {
+        select.value = "";
+      }
+    }
+
+    function addExpenseFromDrawerQuickSelect() {
+      const select = document.getElementById("drawerQuickPayerSelect");
+      const payerId = select.value;
+
+      if (addExpenseForPayer(payerId)) {
+        select.value = "";
+      }
+    }
+
+    function addExpenseForPayer(payerId) {
+      clearMessages();
+
+      if (state.participants.length === 0) {
+        showError("Add participants first.");
+        return false;
+      }
+
+      const payerExists = state.participants.some(p => p.id === payerId);
+
+      if (!payerExists) {
+        showError("Select who paid before adding an expense.");
+        return false;
+      }
+
+      state.expandedPayerIds = state.expandedPayerIds || {};
+      state.expandedPayerIds[payerId] = true;
+
+      // New expense goes on top, so user does not scroll after every add.
+      state.expenses.unshift({
+        id: makeId(),
+        title: "",
+        payerId,
+        amount: "",
+        splitIds: state.participants.map(p => p.id)
+      });
+
+      renderExpenseGroupsPreserveScroll();
+      showSuccess("Expense added on top. Fill expense name, amount, and shared people.");
+      return true;
+    }
+
+    function removeExpense(expenseId) {
+      state.expenses = state.expenses.filter(e => e.id !== expenseId);
+      resetResultAfterEdit();
+      renderExpenseGroupsPreserveScroll();
+    }
+
+    function updateExpense(expenseId, field, value) {
+      const expense = state.expenses.find(e => e.id === expenseId);
+      if (!expense) return;
+
+      expense[field] = value;
+    }
+
+    function toggleSplit(expenseId, personId, checked) {
+      const expense = state.expenses.find(e => e.id === expenseId);
+      if (!expense) return;
+
+      const exists = expense.splitIds.includes(personId);
+
+      if (checked && !exists) {
+        expense.splitIds.push(personId);
+      }
+
+      if (!checked && exists) {
+        expense.splitIds = expense.splitIds.filter(id => id !== personId);
+      }
+    }
+
+    function selectAllForExpense(expenseId) {
+      const expense = state.expenses.find(e => e.id === expenseId);
+      if (!expense) return;
+
+      expense.splitIds = state.participants.map(p => p.id);
+      renderExpenseGroupsPreserveScroll();
+    }
+
+    function clearAllForExpense(expenseId) {
+      const expense = state.expenses.find(e => e.id === expenseId);
+      if (!expense) return;
+
+      expense.splitIds = [];
+      renderExpenseGroupsPreserveScroll();
+    }
+
+    function togglePayerGroup(payerId) {
+      state.expandedPayerIds = state.expandedPayerIds || {};
+      state.expandedPayerIds[payerId] = !state.expandedPayerIds[payerId];
+      renderExpenseGroupsPreserveScroll();
+    }
+
+    function render() {
+      if (!state.expandedPayerIds) state.expandedPayerIds = {};
+      renderParticipants();
+      renderDrawerParticipants();
+      renderQuickPayerSelects();
+      renderExpenseGroups();
+      updateSummaryDraft();
+    }
+
+    function renderPreserveScroll() {
+      const pageY = window.scrollY;
+      const drawer = document.querySelector(".drawer-panel");
+      const drawerY = drawer ? drawer.scrollTop : 0;
+
+      render();
+
+      requestAnimationFrame(() => {
+        window.scrollTo(0, pageY);
+        const freshDrawer = document.querySelector(".drawer-panel");
+        if (freshDrawer) freshDrawer.scrollTop = drawerY;
+      });
+    }
+
+    function renderParticipants() {
+      const container = document.getElementById("participantsList");
+
+      if (state.participants.length === 0) {
+        container.innerHTML = `<div class="empty-state">No participants yet. Add names first.</div>`;
+        return;
+      }
+
+      container.innerHTML = buildParticipantsHtml("main");
+    }
+
+    function renderDrawerParticipants() {
+      const container = document.getElementById("drawerParticipantsList");
+      if (!container) return;
+
+      if (state.participants.length === 0) {
+        container.innerHTML = `<div class="empty-state">No participants yet. Add names first.</div>`;
+        return;
+      }
+
+      container.innerHTML = buildParticipantsHtml("drawer");
+    }
+
+    function buildParticipantsHtml(scope) {
+      return state.participants.map(person => `
+        <div class="participant-row">
+          <input
+            type="text"
+            value="${escapeHtml(person.name)}"
+            oninput="updateParticipantName('${person.id}', this.value)"
+          />
+          <button type="button" class="btn-danger btn-small" onclick="removeParticipant('${person.id}')">Remove</button>
+        </div>
+      `).join("");
+    }
+
+    function renderQuickPayerSelects() {
+      renderQuickPayerSelect("quickPayerSelect");
+      renderQuickPayerSelect("drawerQuickPayerSelect");
+    }
+
+    function renderQuickPayerSelect(selectId) {
+      const select = document.getElementById(selectId);
+      if (!select) return;
+
+      if (state.participants.length === 0) {
+        select.innerHTML = `<option value="">Add participants first</option>`;
+        select.disabled = true;
+        return;
+      }
+
+      const oldValue = select.value;
+      select.disabled = false;
+
+      select.innerHTML = `
+        <option value="">Select participant</option>
+        ${state.participants.map(person => `
+          <option value="${person.id}">${escapeHtml(person.name || "Unnamed")}</option>
+        `).join("")}
+      `;
+
+      if (oldValue && state.participants.some(p => p.id === oldValue)) {
+        select.value = oldValue;
+      } else {
+        select.value = "";
+      }
+    }
+
+    function renderExpenseGroups() {
+      const mainContainer = document.getElementById("expensesByPayerList");
+      const drawerContainer = document.getElementById("drawerExpensesByPayerList");
+
+      const html = buildExpenseGroupsHtml();
+
+      if (mainContainer) mainContainer.innerHTML = html;
+      if (drawerContainer) drawerContainer.innerHTML = html;
+    }
+
+    function renderExpenseGroupsPreserveScroll() {
+      const pageY = window.scrollY;
+      const drawer = document.querySelector(".drawer-panel");
+      const drawerY = drawer ? drawer.scrollTop : 0;
+
+      renderExpenseGroups();
+
+      requestAnimationFrame(() => {
+        window.scrollTo(0, pageY);
+        const freshDrawer = document.querySelector(".drawer-panel");
+        if (freshDrawer) freshDrawer.scrollTop = drawerY;
+      });
+    }
+
+    function buildExpenseGroupsHtml() {
+      if (state.participants.length === 0) {
+        return `<div class="empty-state">Add participants first. Then expenses can be grouped by payer.</div>`;
+      }
+
+      if (state.expenses.length === 0) {
+        return `<div class="empty-state">No expenses added yet. Choose a payer above and click <b>Add Expense</b>.</div>`;
+      }
+
+      const payerIdsWithExpenses = [...new Set(state.expenses.map(expense => expense.payerId))];
+
+      return payerIdsWithExpenses.map(payerId => {
+        const person = state.participants.find(p => p.id === payerId);
+        if (!person) return "";
+
+        const personExpenses = state.expenses.filter(expense => expense.payerId === payerId);
+        const totalPaid = personExpenses.reduce((sum, expense) => {
+          const amount = Number(expense.amount);
+          return sum + (isFinite(amount) ? amount : 0);
+        }, 0);
+
+        const cards = personExpenses.map((expense, index) => renderExpenseCard(expense, index)).join("");
+
+        return `
+          <div class="payer-section ${state.expandedPayerIds && state.expandedPayerIds[payerId] ? "open" : ""}" data-payer-section="${payerId}">
+            <div class="payer-section-header">
+              <div>
+                <div class="payer-title">Expenses by ${escapeHtml(person.name || "Unnamed")}</div>
+                <div class="payer-meta">${personExpenses.length} expense(s), total entered: ${formatNumber(roundToOneDecimal(totalPaid))}</div>
+              </div>
+
+              <span class="badge">${personExpenses.length} item(s)</span>
+
+              <div class="action-row">
+                <button type="button" class="btn-light btn-small" onclick="togglePayerGroup('${payerId}')">Show / Hide</button>
+                <button type="button" class="btn-primary btn-small" onclick="addExpenseForPayer('${payerId}')">+ Add Here</button>
+              </div>
+            </div>
+
+            <div class="payer-body">
+              ${cards}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderExpenseCard(expense, index) {
+      const splitChips = state.participants.map(person => {
+        const checked = expense.splitIds.includes(person.id);
+
+        return `
+          <label class="chip">
+            <input
+              type="checkbox"
+              ${checked ? "checked" : ""}
+              onchange="toggleSplit('${expense.id}', '${person.id}', this.checked)"
+            />
+            ${escapeHtml(person.name || "Unnamed")}
+          </label>
+        `;
+      }).join("");
+
+      return `
+        <div class="expense-card">
+          <div class="expense-head">
+            <div>
+              <label>Expense Name</label>
+              <input
+                type="text"
+                placeholder="Food / Drinks / Taxi"
+                value="${escapeHtml(expense.title)}"
+                oninput="updateExpense('${expense.id}', 'title', this.value)"
+              />
+            </div>
+
+            <div>
+              <label>Amount</label>
+              <input
+                type="text"
+                inputmode="decimal"
+                autocomplete="off"
+                placeholder="0"
+                value="${escapeHtml(String(expense.amount))}"
+                oninput="updateExpense('${expense.id}', 'amount', this.value)"
+              />
+            </div>
+
+            <div>
+              <button type="button" class="btn-danger" onclick="removeExpense('${expense.id}')">Remove</button>
+            </div>
+          </div>
+
+          <div class="split-box">
+            <div class="split-title">
+              <b>Who shared this expense?</b>
+              <div class="action-row">
+                <button type="button" class="btn-light btn-small" onclick="selectAllForExpense('${expense.id}')">Select All</button>
+                <button type="button" class="btn-light btn-small" onclick="clearAllForExpense('${expense.id}')">Clear</button>
+              </div>
+            </div>
+
+            <div class="chips">
+              ${splitChips}
+            </div>
+
+            <p class="small-text">
+              If the payer did not use this item, keep this expense under their name but untick their checkbox.
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDrawer() {
+      renderDrawerParticipants();
+      renderQuickPayerSelects();
+      renderExpenseGroups();
+    }
+
+    function validateBeforeCalculate() {
+      if (state.participants.length < 2) {
+        return "Add at least 2 participants.";
+      }
+
+      const names = state.participants.map(p => p.name.trim());
+
+      if (names.some(name => !name)) {
+        return "Participant names cannot be blank.";
+      }
+
+      const uniqueNames = new Set(names.map(name => name.toLowerCase()));
+
+      if (uniqueNames.size !== names.length) {
+        return "Duplicate participant names found. Names must be unique.";
+      }
+
+      if (state.expenses.length === 0) {
+        return "Add at least one expense.";
+      }
+
+      for (let i = 0; i < state.expenses.length; i++) {
+        const expense = state.expenses[i];
+        const amount = Number(expense.amount);
+        const payer = state.participants.find(p => p.id === expense.payerId);
+
+        if (!payer) {
+          return `Expense #${i + 1} has invalid payer.`;
+        }
+
+        if (!expense.title.trim()) {
+          return `Expense #${i + 1}, paid by ${payer.name}, needs an expense name.`;
+        }
+
+        if (!isFinite(amount) || amount <= 0) {
+          return `Expense #${i + 1}, paid by ${payer.name}, needs an amount greater than 0.`;
+        }
+
+        if (!expense.splitIds || expense.splitIds.length === 0) {
+          return `Expense #${i + 1}, paid by ${payer.name}, must be shared by at least one person.`;
+        }
+      }
+
+      return "";
+    }
+
+    function calculate() {
+      clearMessages();
+
+      const error = validateBeforeCalculate();
+
+      if (error) {
+        showError(error);
+
+        if (currentPage === "result") {
+          openEditor();
+        }
+
+        return;
+      }
+
+      const people = state.participants.map(person => ({
+        id: person.id,
+        name: person.name.trim(),
+        totalPaid: 0,
+        totalShare: 0,
+        balance: 0,
+        roundedBalance: 0,
+        netPayable: 0
+      }));
+
+      const peopleMap = {};
+      people.forEach(person => {
+        peopleMap[person.id] = person;
+      });
+
+      let totalExpense = 0;
+
+      state.expenses.forEach(expense => {
+        const amount = Number(expense.amount);
+        totalExpense += amount;
+
+        const payer = peopleMap[expense.payerId];
+        payer.totalPaid += amount;
+
+        const share = amount / expense.splitIds.length;
+
+        expense.splitIds.forEach(personId => {
+          if (peopleMap[personId]) {
+            peopleMap[personId].totalShare += share;
+          }
+        });
+      });
+
+      people.forEach(person => {
+        person.balance = person.totalPaid - person.totalShare;
+      });
+
+      const roundedBalances = roundBalancesToWholeNumbers(
+        people.map(person => person.balance)
+      );
+
+      people.forEach((person, index) => {
+        person.roundedBalance = roundedBalances[index];
+        person.netPayable = -roundedBalances[index];
+      });
+
+      try {
+        crossVerifyCalculation(people, totalExpense);
+      } catch (internalError) {
+        showError(internalError.message);
+        return;
+      }
+
+      const settlement = buildSettlement(people);
+
+      lastPeople = people;
+      lastSettlement = settlement;
+      lastTotalExpense = totalExpense;
+      lastTransactions = settlement.transactions;
+
+      renderResults(people, settlement, totalExpense);
+
+      closeEditor();
+      setPage("result");
+      showSuccess("Calculation completed.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function roundBalancesToWholeNumbers(balances) {
+      // One-decimal settlement rounding for better accuracy.
+      // Example: 33.333 becomes 33.3 instead of 33.
+      const rounded = balances.map(value => roundToOneDecimal(value));
+      const difference = roundToOneDecimal(rounded.reduce((sum, value) => sum + value, 0));
+
+      if (Math.abs(difference) < 0.000001) return rounded;
+
+      let correctionIndex = -1;
+      let largestAbs = -1;
+
+      for (let i = 0; i < rounded.length; i++) {
+        if (
+          (difference > 0 && rounded[i] > 0) ||
+          (difference < 0 && rounded[i] < 0)
+        ) {
+          const absValue = Math.abs(rounded[i]);
+
+          if (absValue > largestAbs) {
+            largestAbs = absValue;
+            correctionIndex = i;
+          }
+        }
+      }
+
+      if (correctionIndex === -1) {
+        for (let i = 0; i < rounded.length; i++) {
+          const absValue = Math.abs(rounded[i]);
+
+          if (absValue > largestAbs) {
+            largestAbs = absValue;
+            correctionIndex = i;
+          }
+        }
+      }
+
+      if (correctionIndex !== -1) {
+        rounded[correctionIndex] = roundToOneDecimal(rounded[correctionIndex] - difference);
+      }
+
+      return rounded;
+    }
+
+    function roundToOneDecimal(value) {
+      return Math.round((Number(value) + Number.EPSILON) * 10) / 10;
+    }
+
+    function buildSettlement(people) {
+      const matrix = {};
+
+      people.forEach(receiver => {
+        matrix[receiver.id] = {};
+        people.forEach(payer => {
+          matrix[receiver.id][payer.id] = 0;
+        });
+      });
+
+      const creditors = people
+        .filter(person => person.roundedBalance > 0)
+        .map(person => ({
+          id: person.id,
+          name: person.name,
+          amount: person.roundedBalance
+        }))
+        .sort((a, b) => b.amount - a.amount);
+
+      const debtors = people
+        .filter(person => person.roundedBalance < 0)
+        .map(person => ({
+          id: person.id,
+          name: person.name,
+          amount: Math.abs(person.roundedBalance)
+        }))
+        .sort((a, b) => b.amount - a.amount);
+
+      const transactions = [];
+
+      let creditorIndex = 0;
+      let debtorIndex = 0;
+
+      while (creditorIndex < creditors.length && debtorIndex < debtors.length) {
+        const creditor = creditors[creditorIndex];
+        const debtor = debtors[debtorIndex];
+
+        const amount = Math.min(creditor.amount, debtor.amount);
+
+        if (amount > 0) {
+          matrix[creditor.id][debtor.id] = amount;
+
+          transactions.push({
+            from: debtor.name,
+            to: creditor.name,
+            amount
+          });
+        }
+
+        creditor.amount -= amount;
+        debtor.amount -= amount;
+
+        if (creditor.amount === 0) creditorIndex++;
+        if (debtor.amount === 0) debtorIndex++;
+      }
+
+      return {
+        matrix,
+        transactions
+      };
+    }
+
+
+    function crossVerifyCalculation(people, totalExpense) {
+      const rawPaidTotal = people.reduce((sum, person) => sum + person.totalPaid, 0);
+      const rawShareTotal = people.reduce((sum, person) => sum + person.totalShare, 0);
+      const roundedNetTotal = roundToOneDecimal(
+        people.reduce((sum, person) => sum + person.netPayable, 0)
+      );
+
+      if (Math.abs(rawPaidTotal - totalExpense) > 0.0001) {
+        throw new Error("Internal check failed: total paid does not match total expense.");
+      }
+
+      if (Math.abs(rawShareTotal - totalExpense) > 0.0001) {
+        throw new Error("Internal check failed: total expense share does not match total expense.");
+      }
+
+      if (Math.abs(roundedNetTotal) > 0.0001) {
+        throw new Error("Internal check failed: net payable total is not zero.");
+      }
+    }
+
+    function renderResults(people, settlement, totalExpense) {
+      document.getElementById("totalExpenseBox").textContent = formatNumber(roundToOneDecimal(totalExpense));
+      document.getElementById("peopleCountBox").textContent = people.length;
+      document.getElementById("transactionCountBox").textContent = settlement.transactions.length;
+
+      renderInstructionList(settlement.transactions);
+      renderSettlementMatrix(people, settlement.matrix);
+      renderVerificationTable(people);
+
+      document.getElementById("verificationBox").classList.remove("open");
+      document.getElementById("toggleVerificationBtn").textContent = "Show Verification Table";
+    }
+
+    function renderInstructionList(transactions) {
+      const container = document.getElementById("instructionsOutput");
+
+      if (transactions.length === 0) {
+        container.innerHTML = `<div class="empty-state">No settlement needed. Everyone is already balanced.</div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <ol class="instruction-list">
+          ${transactions.map(txn => `
+            <li><b>${escapeHtml(txn.from)}</b> has to pay <b>${escapeHtml(txn.to)}</b> <b>${formatWholeNumber(txn.amount)}</b></li>
+          `).join("")}
+        </ol>
+      `;
+    }
+
+    function renderSettlementMatrix(people, matrix) {
+      const container = document.getElementById("settlementOutput");
+
+      const receiverRows = people.filter(receiver => {
+        return people.some(payer => matrix[receiver.id][payer.id] > 0);
+      });
+
+      if (receiverRows.length === 0) {
+        container.innerHTML = `<div class="empty-state">No settlement matrix needed.</div>`;
+        return;
+      }
+
+      const header = `
+        <tr>
+          <th>Who Gets Paid</th>
+          ${people.map(person => `<th>${escapeHtml(person.name)}</th>`).join("")}
+        </tr>
+      `;
+
+      const rows = receiverRows.map(receiver => `
+        <tr>
+          <td>${escapeHtml(receiver.name)}</td>
+          ${people.map(payer => {
+            const amount = matrix[receiver.id][payer.id];
+            return `<td>${amount > 0 ? formatNumber(amount) : ""}</td>`;
+          }).join("")}
+        </tr>
+      `).join("");
+
+      container.innerHTML = `
+        <div class="table-wrap">
+          <table>
+            ${header}
+            ${rows}
+          </table>
+        </div>
+      `;
+    }
+
+    function renderVerificationTable(people) {
+      const container = document.getElementById("verificationOutput");
+
+      const totalPaid = roundToOneDecimal(
+        people.reduce((sum, person) => sum + roundToOneDecimal(person.totalPaid), 0)
+      );
+
+      const totalShare = roundToOneDecimal(
+        people.reduce((sum, person) => sum + roundToOneDecimal(person.totalShare), 0)
+      );
+
+      const totalNet = roundToOneDecimal(
+        people.reduce((sum, person) => sum + roundToOneDecimal(person.netPayable), 0)
+      );
+
+      const rows = people.map(person => {
+        const netClass =
+          person.netPayable > 0 ? "positive" :
+          person.netPayable < 0 ? "negative" :
+          "zero";
+
+        return `
+          <tr>
+            <td>${escapeHtml(person.name)}</td>
+            <td>${formatNumber(roundToOneDecimal(person.totalPaid))}</td>
+            <td>${formatNumber(roundToOneDecimal(person.totalShare))}</td>
+            <td class="${netClass}">${formatNumber(person.netPayable)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      container.innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <tr>
+              <th>Person</th>
+              <th>Total Paid</th>
+              <th>Total Expense Share</th>
+              <th>Net Payable</th>
+            </tr>
+            ${rows}
+            <tr>
+              <td>TOTAL</td>
+              <td>${formatNumber(totalPaid)}</td>
+              <td>${formatNumber(totalShare)}</td>
+              <td>${formatNumber(totalNet)}</td>
+            </tr>
+          </table>
+        </div>
+      `;
+    }
+
+    function toggleVerification() {
+      const box = document.getElementById("verificationBox");
+      const btn = document.getElementById("toggleVerificationBtn");
+
+      box.classList.toggle("open");
+      btn.textContent = box.classList.contains("open")
+        ? "Hide Verification Table"
+        : "Show Verification Table";
+    }
+
+    function copyInstructions() {
+      if (!lastTransactions || lastTransactions.length === 0) {
+        showError("No payment instructions to copy yet.");
+        return;
+      }
+
+      const text = lastTransactions
+        .map(txn => `${txn.from} has to pay ${txn.to} ${formatWholeNumber(txn.amount)}`)
+        .join("\n");
+
+      navigator.clipboard.writeText(text)
+        .then(() => showSuccess("Payment instructions copied."))
+        .catch(() => showError("Could not copy. Browser blocked clipboard access."));
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      showSuccess("Data saved in this browser.");
+    }
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+
+      if (!raw) {
+        showError("No saved data found in this browser.");
+        return;
+      }
+
+      try {
+        state = JSON.parse(raw);
+
+        if (!state.participants) state.participants = [];
+        if (!state.expenses) state.expenses = [];
+        if (!state.expandedPayerIds) state.expandedPayerIds = {};
+
+        clearLastResult();
+        setPage("entry");
+        render();
+        showSuccess("Saved data loaded.");
+      } catch (error) {
+        showError("Saved data is damaged and cannot be loaded.");
+      }
+    }
+
+    let appConfirmMode = "clear";
+
+    function showClearAllModal() {
+      appConfirmMode = "clear";
+
+      document.getElementById("appConfirmTitle").textContent = "Clear everything?";
+      document.getElementById("appConfirmMessage").textContent =
+        "This will delete all participants, expenses, saved browser data, and current results. This cannot be undone.";
+      document.getElementById("appConfirmActionBtn").textContent = "Clear All";
+      document.getElementById("appConfirmActionBtn").onclick = confirmClearAllData;
+
+      showAppConfirm();
+    }
+
+    function showRefreshModal() {
+      appConfirmMode = "refresh";
+
+      document.getElementById("appConfirmTitle").textContent = "Reload DivSplyt?";
+      document.getElementById("appConfirmMessage").textContent =
+        "Changes you made may not be saved. Reloading will refresh the tool.";
+      document.getElementById("appConfirmActionBtn").textContent = "Reload";
+      document.getElementById("appConfirmActionBtn").onclick = confirmAppRefresh;
+
+      showAppConfirm();
+    }
+
+    function showAppConfirm() {
+      const overlay = document.getElementById("appConfirmOverlay");
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+    }
+
+    function hideAppConfirm() {
+      const overlay = document.getElementById("appConfirmOverlay");
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+
+    function confirmClearAllData() {
+      state = {
+        participants: [],
+        expenses: [],
+        expandedPayerIds: {}
+      };
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      clearLastResult();
+      closeEditor();
+      hideAppConfirm();
+      setPage("entry");
+      render();
+      showSuccess("Everything cleared.");
+    }
+
+    function confirmAppRefresh() {
+      allowNativeReload = true;
+      window.location.reload();
+    }
+
+    function clearAllData() {
+      showClearAllModal();
+    }
+
+    function loadDemoData() {
+      const ok = confirm("Load demo data? This will replace current data.");
+      if (!ok) return;
+
+      const rahul = { id: makeId(), name: "Rahul" };
+      const amit = { id: makeId(), name: "Amit" };
+      const sagar = { id: makeId(), name: "Sagar" };
+      const mohit = { id: makeId(), name: "Mohit" };
+
+      state.participants = [rahul, amit, sagar, mohit];
+
+      state.expandedPayerIds = {};
+
+      state.expenses = [
+        {
+          id: makeId(),
+          title: "Food",
+          payerId: rahul.id,
+          amount: "1000",
+          splitIds: [rahul.id, amit.id, sagar.id, mohit.id]
+        },
+        {
+          id: makeId(),
+          title: "Drinks",
+          payerId: amit.id,
+          amount: "400",
+          splitIds: [rahul.id, amit.id, sagar.id]
+        },
+        {
+          id: makeId(),
+          title: "Taxi",
+          payerId: mohit.id,
+          amount: "600",
+          splitIds: [amit.id, sagar.id, mohit.id]
+        }
+      ];
+
+      clearLastResult();
+      setPage("entry");
+      render();
+      showSuccess("Demo data loaded. Click Calculate Result.");
+    }
+
+    function clearLastResult() {
+      lastTransactions = [];
+      lastPeople = [];
+      lastSettlement = null;
+      lastTotalExpense = 0;
+      document.getElementById("instructionsOutput").innerHTML = "";
+      document.getElementById("settlementOutput").innerHTML = "";
+      document.getElementById("verificationOutput").innerHTML = "";
+      updateSummaryDraft();
+    }
+
+    function resetResultAfterEdit() {
+      if (currentPage === "result") {
+        document.getElementById("instructionsOutput").innerHTML = `
+          <div class="empty-state">Details changed. Click <b>Calculate Again</b> to refresh the result.</div>
+        `;
+      }
+      lastTransactions = [];
+    }
+
+    function updateSummaryDraft() {
+      const totalEntered = state.expenses.reduce((sum, expense) => {
+        const amount = Number(expense.amount);
+        return sum + (isFinite(amount) ? amount : 0);
+      }, 0);
+
+      document.getElementById("peopleCountBox").textContent = state.participants.length;
+      document.getElementById("totalExpenseBox").textContent = formatNumber(roundToOneDecimal(totalEntered));
+      document.getElementById("transactionCountBox").textContent = lastTransactions.length || 0;
+    }
+
+    function formatNumber(value) {
+      value = roundToOneDecimal(value);
+
+      if (Object.is(value, -0)) value = 0;
+
+      return Number(value).toLocaleString("en-IN", {
+        minimumFractionDigits: Number.isInteger(value) ? 0 : 1,
+        maximumFractionDigits: 1
+      });
+    }
+
+    function formatWholeNumber(value) {
+      if (Object.is(value, -0)) value = 0;
+
+      return Math.round(Number(value)).toLocaleString("en-IN", {
+        maximumFractionDigits: 0
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeEditor();
+      }
+    });
+
+
+    document.addEventListener("wheel", function(event) {
+      const active = document.activeElement;
+
+      if (
+        active &&
+        active.tagName === "INPUT" &&
+        (active.type === "number" || active.inputMode === "decimal")
+      ) {
+        active.blur();
+      }
+    }, { passive: true });
+
+
+    function hasCurrentData() {
+      return (
+        state &&
+        (
+          (state.participants && state.participants.length > 0) ||
+          (state.expenses && state.expenses.length > 0)
+        )
+      );
+    }
+
+    let allowNativeReload = false;
+
+    window.addEventListener("beforeunload", function(event) {
+      if (allowNativeReload || !hasCurrentData()) return;
+
+      event.preventDefault();
+      event.returnValue = "Refreshing will wipe the current unsaved expense data.";
+      return event.returnValue;
+    });
+
+
+    document.addEventListener("keydown", function(event) {
+      const isReloadShortcut =
+        event.key === "F5" ||
+        ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "r");
+
+      if (!isReloadShortcut || !hasCurrentData()) return;
+
+      event.preventDefault();
+      showRefreshModal();
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      startLogoRotation();
+      applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || "dark");
+      document.getElementById("appConfirmOverlay").addEventListener("click", function(event) {
+        if (event.target.id === "appConfirmOverlay") {
+          hideAppConfirm();
+        }
+      });
+
+      document.getElementById("newPersonName").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          addParticipant();
+        }
+      });
+
+      document.getElementById("drawerNewPersonName").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          addParticipantFromDrawer();
+        }
+      });
+
+      render();
+      setPage("entry");
+    });
+  </script>
+
+<script>
+/* =========================
+   DivSplyt Feature Upgrade Layer
+   ========================= */
+
+const DIVSPLYT_EVENTS_KEY = "divsplyt_named_events_v1";
+const DIVSPLYT_TEMPLATES_KEY = "divsplyt_participant_templates_v1";
+
+const DIVSPLYT_CURRENCIES = [
+  { code: "INR", symbol: "₹", name: "Indian Rupee" },
+  { code: "USD", symbol: "$", name: "US Dollar" },
+  { code: "EUR", symbol: "€", name: "Euro" },
+  { code: "GBP", symbol: "£", name: "British Pound" },
+  { code: "AED", symbol: "د.إ", name: "UAE Dirham" },
+  { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
+  { code: "AUD", symbol: "A$", name: "Australian Dollar" },
+  { code: "SGD", symbol: "S$", name: "Singapore Dollar" },
+  { code: "JPY", symbol: "¥", name: "Japanese Yen" },
+  { code: "CNY", symbol: "¥", name: "Chinese Yuan" }
+];
+
+function ensureUpgradeState() {
+  if (!state.settings) state.settings = {};
+  if (!state.settings.currencyCode) state.settings.currencyCode = "INR";
+  if (!state.settings.currencySymbol) state.settings.currencySymbol = "₹";
+  if (typeof state.settings.roundingDecimals !== "number") state.settings.roundingDecimals = 0;
+  if (!state.paymentStatus) state.paymentStatus = {};
+  if (!state.expandedPayerIds) state.expandedPayerIds = {};
+}
+
+function getCurrency() {
+  ensureUpgradeState();
+  const found = DIVSPLYT_CURRENCIES.find(item => item.code === state.settings.currencyCode) || DIVSPLYT_CURRENCIES[0];
+  state.settings.currencyCode = found.code;
+  state.settings.currencySymbol = found.symbol;
+  return found;
+}
+
+function getCurrencySymbol() { return getCurrency().symbol; }
+
+function formatMoney(value, wholeOnly) {
+  const symbol = getCurrencySymbol();
+  const formatted = wholeOnly ? formatWholeNumber(value) : formatNumber(value);
+  return `${symbol}${formatted}`;
+}
+
+function getSettlementDecimals() {
+  ensureUpgradeState();
+  const value = Number(state.settings.roundingDecimals);
+  return [0, 1, 2].includes(value) ? value : 0;
+}
+
+function roundToDecimals(value, decimals) {
+  const factor = Math.pow(10, decimals);
+  return Math.round((Number(value) + Number.EPSILON) * factor) / factor;
+}
+
+function formatSettlementNumber(value) {
+  const decimals = getSettlementDecimals();
+  const numericValue = roundToDecimals(value, decimals);
+  return Number(numericValue).toLocaleString("en-IN", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
+function roundBalancesToWholeNumbers(balances) {
+  const decimals = getSettlementDecimals();
+  const rounded = balances.map(value => roundToDecimals(value, decimals));
+  const difference = roundToDecimals(rounded.reduce((sum, value) => sum + value, 0), decimals);
+
+  if (Math.abs(difference) < 0.000001) return rounded;
+
+  let correctionIndex = -1;
+  let largestAbs = -1;
+
+  for (let i = 0; i < rounded.length; i++) {
+    if ((difference > 0 && rounded[i] > 0) || (difference < 0 && rounded[i] < 0)) {
+      const absValue = Math.abs(rounded[i]);
+      if (absValue > largestAbs) {
+        largestAbs = absValue;
+        correctionIndex = i;
+      }
+    }
+  }
+
+  if (correctionIndex === -1) {
+    for (let i = 0; i < rounded.length; i++) {
+      const absValue = Math.abs(rounded[i]);
+      if (absValue > largestAbs) {
+        largestAbs = absValue;
+        correctionIndex = i;
+      }
+    }
+  }
+
+  if (correctionIndex !== -1) {
+    rounded[correctionIndex] = roundToDecimals(rounded[correctionIndex] - difference, decimals);
+  }
+
+  return rounded;
+}
+
+function buildTransactionKey(txn) {
+  return `${txn.from}__TO__${txn.to}__AMT__${formatSettlementNumber(txn.amount)}`;
+}
+
+function togglePaymentStatus(key, checked) {
+  ensureUpgradeState();
+  state.paymentStatus[key] = checked;
+}
+
+function injectUpgradeControls() {
+  if (!document.getElementById("divsplytSettingsCard")) {
+    const participantCards = document.querySelectorAll("#entryPage .card");
+    const quickRulesCard = participantCards[1];
+    if (quickRulesCard) quickRulesCard.insertAdjacentHTML("afterend", buildSettingsAndTemplatesHtml());
+  }
+
+  const expenseCard = document.querySelector("#entryPage section:nth-child(2) .card");
+
+  if (expenseCard && !document.getElementById("expenseSearchBox")) {
+    const quickAdd = expenseCard.querySelector(".quick-add");
+    if (quickAdd) quickAdd.insertAdjacentHTML("afterend", buildExpenseControlsHtml());
+  }
+
+  if (expenseCard && !document.getElementById("eventManagerCard")) {
+    expenseCard.insertAdjacentHTML("beforeend", buildEventManagerHtml());
+  }
+
+  const resultFirstActions = document.querySelector("#resultPage .card .action-row");
+  if (resultFirstActions && !document.getElementById("downloadPdfBtn")) {
+    resultFirstActions.insertAdjacentHTML("beforeend", '<button type="button" id="downloadPdfBtn" class="btn-light" onclick="downloadPDFReport()">Download PDF</button>');
+  }
+
+  const verificationCard = document.querySelector("#resultPage .card:last-child");
+  if (verificationCard && !document.getElementById("expenseBreakdownCard")) {
+    verificationCard.insertAdjacentHTML("beforebegin", `
+      <div class="card" id="expenseBreakdownCard">
+        <h2>Expense Breakdown</h2>
+        <p class="hint">Readable expense details. Open this when someone asks where the money went, as humans do.</p>
+        <button type="button" id="toggleExpenseBreakdownBtn" class="btn-light" onclick="toggleExpenseBreakdown()">Show Expense Breakdown</button>
+        <div id="expenseBreakdownBox" class="verification-box">
+          <div id="expenseBreakdownOutput"></div>
+        </div>
+      </div>
+    `);
+  }
+
+  bindUpgradeControls();
+  refreshEventSelect();
+  refreshTemplateSelect();
+  syncUpgradeControls();
+}
+
+function buildSettingsAndTemplatesHtml() {
+  return `
+    <div class="card ds-control-card" id="divsplytSettingsCard">
+      <h2>Settings</h2>
+      <p class="hint">Choose currency and payment rounding. Tiny buttons, large consequences.</p>
+      <div class="ds-control-grid">
+        <div>
+          <label>Currency</label>
+          <select id="currencySelect"></select>
+        </div>
+        <div>
+          <label>Settlement Rounding</label>
+          <select id="roundingSelect">
+            <option value="0">0 decimals</option>
+            <option value="1">1 decimal</option>
+            <option value="2">2 decimals</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card ds-control-card" id="participantTemplateCard">
+      <h2>Participant Templates</h2>
+      <p class="hint">Save and reuse groups of people instead of retyping names like it is 2007.</p>
+      <div class="ds-control-grid">
+        <div>
+          <label>Template Name</label>
+          <input id="templateNameInput" type="text" placeholder="Office Team / Friends / Family" />
+        </div>
+        <div>
+          <label>Saved Templates</label>
+          <select id="templateSelect"></select>
+        </div>
+      </div>
+      <div class="ds-mini-actions">
+        <button type="button" class="btn-primary" onclick="saveParticipantTemplate()">Save Group Template</button>
+        <button type="button" class="btn-light" onclick="loadParticipantTemplate()">Load Template</button>
+        <button type="button" class="btn-danger" onclick="deleteParticipantTemplate()">Delete Template</button>
+      </div>
+    </div>
+  `;
+}
+
+function buildExpenseControlsHtml() {
+  return `
+    <div class="ds-search-row">
+      <div>
+        <label>Search Expenses</label>
+        <input id="expenseSearchBox" type="text" placeholder="Search by payer, expense name, or amount" />
+      </div>
+      <button type="button" class="btn-light" onclick="expandAllExpenseGroups()">Expand All</button>
+      <button type="button" class="btn-light" onclick="collapseAllExpenseGroups()">Collapse All</button>
+    </div>
+  `;
+}
+
+function buildEventManagerHtml() {
+  return `
+    <div class="card ds-control-card ds-event-card" id="eventManagerCard">
+      <h2>Event Manager</h2>
+      <p class="hint">Save, load, rename, and delete complete events. One save slot was a little embarrassing.</p>
+      <div class="ds-control-grid">
+        <div>
+          <label>Event Name</label>
+          <input id="eventNameInput" type="text" placeholder="Goa Trip / Office Lunch / Birthday" />
+        </div>
+        <div>
+          <label>Saved Events</label>
+          <select id="eventSelect"></select>
+        </div>
+      </div>
+      <div class="ds-mini-actions">
+        <button type="button" class="btn-primary" onclick="saveNamedEvent()">Save Event</button>
+        <button type="button" class="btn-light" onclick="loadNamedEvent()">Load Event</button>
+        <button type="button" class="btn-light" onclick="renameNamedEvent()">Rename Event</button>
+        <button type="button" class="btn-danger" onclick="deleteNamedEvent()">Delete Event</button>
+      </div>
+    </div>
+  `;
+}
+
+function bindUpgradeControls() {
+  const currencySelect = document.getElementById("currencySelect");
+  if (currencySelect && !currencySelect.dataset.bound) {
+    currencySelect.dataset.bound = "true";
+    currencySelect.innerHTML = DIVSPLYT_CURRENCIES.map(currency => `<option value="${currency.code}">${currency.code} ${currency.symbol}</option>`).join("");
+    currencySelect.addEventListener("change", function () {
+      const selected = DIVSPLYT_CURRENCIES.find(item => item.code === this.value) || DIVSPLYT_CURRENCIES[0];
+      ensureUpgradeState();
+      state.settings.currencyCode = selected.code;
+      state.settings.currencySymbol = selected.symbol;
+      renderPreserveScroll();
+      if (lastPeople && lastPeople.length && lastSettlement) renderResults(lastPeople, lastSettlement, lastTotalExpense);
+    });
+  }
+
+  const roundingSelect = document.getElementById("roundingSelect");
+  if (roundingSelect && !roundingSelect.dataset.bound) {
+    roundingSelect.dataset.bound = "true";
+    roundingSelect.addEventListener("change", function () {
+      ensureUpgradeState();
+      state.settings.roundingDecimals = Number(this.value);
+      resetResultAfterEdit();
+      showSuccess("Rounding mode updated. Calculate again for fresh settlement.");
+    });
+  }
+
+  const searchBox = document.getElementById("expenseSearchBox");
+  if (searchBox && !searchBox.dataset.bound) {
+    searchBox.dataset.bound = "true";
+    searchBox.addEventListener("input", function () { renderExpenseGroupsPreserveScroll(); });
+  }
+
+  bindAutoAddExpenseDropdown("quickPayerSelect");
+  bindAutoAddExpenseDropdown("drawerQuickPayerSelect");
+}
+
+function bindAutoAddExpenseDropdown(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select || select.dataset.autoAddBound) return;
+  select.dataset.autoAddBound = "true";
+  select.addEventListener("change", function () {
+    const payerId = this.value;
+    if (!payerId) return;
+    if (addExpenseForPayer(payerId)) this.value = "";
+  });
+}
+
+function syncUpgradeControls() {
+  ensureUpgradeState();
+  const currencySelect = document.getElementById("currencySelect");
+  if (currencySelect) currencySelect.value = state.settings.currencyCode || "INR";
+  const roundingSelect = document.getElementById("roundingSelect");
+  if (roundingSelect) roundingSelect.value = String(getSettlementDecimals());
+}
+
+function render() {
+  ensureUpgradeState();
+  if (!state.expandedPayerIds) state.expandedPayerIds = {};
+  renderParticipants();
+  renderDrawerParticipants();
+  renderQuickPayerSelects();
+  renderExpenseGroups();
+  updateSummaryDraft();
+  injectUpgradeControls();
+  syncUpgradeControls();
+}
+
+function renderQuickPayerSelect(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  if (state.participants.length === 0) {
+    select.innerHTML = `<option value="">Add participants first</option>`;
+    select.disabled = true;
+    return;
+  }
+  select.disabled = false;
+  select.innerHTML = `<option value="">Select participant</option>${state.participants.map(person => `<option value="${person.id}">${escapeHtml(person.name || "Unnamed")}</option>`).join("")}`;
+  select.value = "";
+}
+
+function renderExpenseCard(expense, index) {
+  const splitChips = state.participants.map(person => {
+    const checked = expense.splitIds.includes(person.id);
+    return `<label class="chip"><input type="checkbox" ${checked ? "checked" : ""} onchange="toggleSplit('${expense.id}', '${person.id}', this.checked)" />${escapeHtml(person.name || "Unnamed")}</label>`;
+  }).join("");
+  return `
+    <div class="expense-card">
+      <div class="expense-head">
+        <div><label>Expense Name</label><input type="text" placeholder="Food / Drinks / Taxi" value="${escapeHtml(expense.title)}" oninput="updateExpense('${expense.id}', 'title', this.value)" /></div>
+        <div><label>Amount (${escapeHtml(getCurrencySymbol())})</label><input type="text" inputmode="decimal" autocomplete="off" placeholder="0" value="${escapeHtml(String(expense.amount))}" oninput="updateExpense('${expense.id}', 'amount', this.value)" /></div>
+        <div><button type="button" class="btn-danger" onclick="removeExpense('${expense.id}')">Remove</button></div>
+      </div>
+      <div class="split-box">
+        <div class="split-title"><b>Who shared this expense?</b><div class="action-row"><button type="button" class="btn-light btn-small" onclick="selectAllForExpense('${expense.id}')">Select All</button><button type="button" class="btn-light btn-small" onclick="clearAllForExpense('${expense.id}')">Clear</button></div></div>
+        <div class="chips">${splitChips}</div>
+        <p class="small-text">If the payer did not use this item, keep this expense under their name but untick their checkbox.</p>
+      </div>
+    </div>`;
+}
+
+function buildExpenseGroupsHtml() {
+  if (state.participants.length === 0) return `<div class="empty-state">Add participants first. Then expenses can be grouped by payer.</div>`;
+  if (state.expenses.length === 0) return `<div class="empty-state">No expenses added yet. Choose a payer above and click <b>Add Expense</b>.</div>`;
+  const searchBox = document.getElementById("expenseSearchBox");
+  const searchTerm = searchBox ? searchBox.value.trim().toLowerCase() : "";
+  const payerIdsWithExpenses = [...new Set(state.expenses.map(expense => expense.payerId))];
+  const html = payerIdsWithExpenses.map(payerId => {
+    const person = state.participants.find(p => p.id === payerId);
+    if (!person) return "";
+    let personExpenses = state.expenses.filter(expense => expense.payerId === payerId);
+    if (searchTerm) {
+      personExpenses = personExpenses.filter(expense => String(person.name || "").toLowerCase().includes(searchTerm) || String(expense.title || "").toLowerCase().includes(searchTerm) || String(expense.amount || "").toLowerCase().includes(searchTerm));
+    }
+    if (personExpenses.length === 0) return "";
+    const totalPaid = personExpenses.reduce((sum, expense) => sum + (Number(expense.amount) || 0), 0);
+    const cards = personExpenses.map((expense, index) => renderExpenseCard(expense, index)).join("");
+    return `<div class="payer-section ${state.expandedPayerIds && state.expandedPayerIds[payerId] ? "open" : ""}" data-payer-section="${payerId}"><div class="payer-section-header"><div><div class="payer-title">Expenses by ${escapeHtml(person.name || "Unnamed")}</div><div class="payer-meta">${personExpenses.length} expense(s), total entered: ${formatMoney(totalPaid, false)}</div></div><span class="badge">${personExpenses.length} item(s)</span><div class="action-row"><button type="button" class="btn-light btn-small" onclick="togglePayerGroup('${payerId}')">Show / Hide</button><button type="button" class="btn-primary btn-small" onclick="addExpenseForPayer('${payerId}')">+ Add Here</button></div></div><div class="payer-body">${cards}</div></div>`;
+  }).join("");
+  return html || `<div class="empty-state">No matching expenses found.</div>`;
+}
+
+function expandAllExpenseGroups() { state.participants.forEach(person => { state.expandedPayerIds[person.id] = true; }); renderExpenseGroupsPreserveScroll(); }
+function collapseAllExpenseGroups() { state.expandedPayerIds = {}; renderExpenseGroupsPreserveScroll(); }
+
+function renderInstructionList(transactions) {
+  const container = document.getElementById("instructionsOutput");
+  if (transactions.length === 0) { container.innerHTML = `<div class="empty-state">No settlement needed. Everyone is already balanced.</div>`; return; }
+  ensureUpgradeState();
+  container.innerHTML = `<ol class="instruction-list">${transactions.map(txn => { const key = buildTransactionKey(txn); const paid = !!state.paymentStatus[key]; return `<li class="${paid ? "payment-paid" : ""}"><b>${escapeHtml(txn.from)}</b> has to pay <b>${escapeHtml(txn.to)}</b> <b>${formatMoney(txn.amount, getSettlementDecimals() === 0)}</b><label class="payment-status-row"><input type="checkbox" ${paid ? "checked" : ""} onchange="togglePaymentStatus('${escapeHtml(key)}', this.checked)" />Paid</label></li>`; }).join("")}</ol>`;
+}
+
+function renderSettlementMatrix(people, matrix) {
+  const container = document.getElementById("settlementOutput");
+  const receiverRows = people.filter(receiver => people.some(payer => matrix[receiver.id][payer.id] > 0));
+  if (receiverRows.length === 0) { container.innerHTML = `<div class="empty-state">No settlement matrix needed.</div>`; return; }
+  const header = `<tr><th>Who Gets Paid</th>${people.map(person => `<th>${escapeHtml(person.name)}</th>`).join("")}</tr>`;
+  const rows = receiverRows.map(receiver => `<tr><td>${escapeHtml(receiver.name)}</td>${people.map(payer => { const amount = matrix[receiver.id][payer.id]; return `<td>${amount > 0 ? formatSettlementNumber(amount) : ""}</td>`; }).join("")}</tr>`).join("");
+  container.innerHTML = `<div class="table-wrap"><table>${header}${rows}</table></div>`;
+}
+
+function renderVerificationTable(people) {
+  const container = document.getElementById("verificationOutput");
+  const currency = getCurrencySymbol();
+  const totalPaid = roundToOneDecimal(people.reduce((sum, person) => sum + roundToOneDecimal(person.totalPaid), 0));
+  const totalShare = roundToOneDecimal(people.reduce((sum, person) => sum + roundToOneDecimal(person.totalShare), 0));
+  const totalNet = roundToOneDecimal(people.reduce((sum, person) => sum + roundToOneDecimal(person.netPayable), 0));
+  const rows = people.map(person => { const netClass = person.netPayable > 0 ? "positive" : person.netPayable < 0 ? "negative" : "zero"; return `<tr><td>${escapeHtml(person.name)}</td><td>${formatNumber(roundToOneDecimal(person.totalPaid))}</td><td>${formatNumber(roundToOneDecimal(person.totalShare))}</td><td class="${netClass}">${formatNumber(person.netPayable)}</td></tr>`; }).join("");
+  container.innerHTML = `<div class="table-wrap"><table><tr><th>Person</th><th>Total Paid (${escapeHtml(currency)})</th><th>Total Expense Share (${escapeHtml(currency)})</th><th>Net Payable (${escapeHtml(currency)})</th></tr>${rows}<tr><td>TOTAL</td><td>${formatNumber(totalPaid)}</td><td>${formatNumber(totalShare)}</td><td>${formatNumber(totalNet)}</td></tr></table></div>`;
+}
+
+function renderResults(people, settlement, totalExpense) {
+  document.getElementById("totalExpenseBox").textContent = formatMoney(roundToOneDecimal(totalExpense), false);
+  document.getElementById("peopleCountBox").textContent = people.length;
+  document.getElementById("transactionCountBox").textContent = settlement.transactions.length;
+  renderInstructionList(settlement.transactions);
+  renderSettlementMatrix(people, settlement.matrix);
+  renderExpenseBreakdown();
+  renderVerificationTable(people);
+  const verificationBox = document.getElementById("verificationBox");
+  const verificationBtn = document.getElementById("toggleVerificationBtn");
+  if (verificationBox && verificationBtn) { verificationBox.classList.remove("open"); verificationBtn.textContent = "Show Verification Table"; }
+  const breakdownBox = document.getElementById("expenseBreakdownBox");
+  const breakdownBtn = document.getElementById("toggleExpenseBreakdownBtn");
+  if (breakdownBox && breakdownBtn) { breakdownBox.classList.remove("open"); breakdownBtn.textContent = "Show Expense Breakdown"; }
+}
+
+function toggleExpenseBreakdown() {
+  const box = document.getElementById("expenseBreakdownBox");
+  const btn = document.getElementById("toggleExpenseBreakdownBtn");
+  if (!box || !btn) return;
+  box.classList.toggle("open");
+  btn.textContent = box.classList.contains("open") ? "Hide Expense Breakdown" : "Show Expense Breakdown";
+}
+
+function renderExpenseBreakdown() {
+  const container = document.getElementById("expenseBreakdownOutput");
+  if (!container) return;
+  if (!state.expenses.length) { container.innerHTML = `<div class="empty-state">No expenses found.</div>`; return; }
+  const rows = state.expenses.map((expense, index) => {
+    const payer = state.participants.find(person => person.id === expense.payerId);
+    const includedPeople = expense.splitIds.map(id => state.participants.find(person => person.id === id)).filter(Boolean).map(person => person.name);
+    const excludedPeople = state.participants.filter(person => !expense.splitIds.includes(person.id)).map(person => person.name);
+    const amount = Number(expense.amount) || 0;
+    const perPerson = expense.splitIds.length > 0 ? amount / expense.splitIds.length : 0;
+    return `<div class="ds-breakdown-item"><div class="ds-breakdown-title"><span>${index + 1}. ${escapeHtml(expense.title || "Untitled Expense")}</span><span>${formatMoney(amount, false)}</span></div><div class="ds-breakdown-meta"><b>Paid by:</b> ${escapeHtml(payer ? payer.name : "Unknown")}<br><b>Included:</b> ${escapeHtml(includedPeople.join(", ") || "None")}<br><b>Excluded:</b> ${escapeHtml(excludedPeople.join(", ") || "None")}<br><b>Share per included person:</b> ${formatMoney(perPerson, false)}</div></div>`;
+  }).join("");
+  container.innerHTML = `<div class="ds-breakdown-list">${rows}</div>`;
+}
+
+function updateSummaryDraft() {
+  const totalEntered = state.expenses.reduce((sum, expense) => sum + (Number(expense.amount) || 0), 0);
+  document.getElementById("peopleCountBox").textContent = state.participants.length;
+  document.getElementById("totalExpenseBox").textContent = formatMoney(roundToOneDecimal(totalEntered), false);
+  document.getElementById("transactionCountBox").textContent = lastTransactions.length || 0;
+}
+
+function copyInstructions() {
+  if (!lastTransactions || lastTransactions.length === 0) { showError("No payment instructions to copy yet."); return; }
+  const text = lastTransactions.map(txn => `${txn.from} has to pay ${txn.to} ${formatMoney(txn.amount, getSettlementDecimals() === 0)}`).join("\n");
+  navigator.clipboard.writeText(text).then(() => showSuccess("Payment instructions copied.")).catch(() => showError("Could not copy. Browser blocked clipboard access."));
+}
+
+function getNamedEvents() { try { return JSON.parse(localStorage.getItem(DIVSPLYT_EVENTS_KEY) || "[]"); } catch (error) { return []; } }
+function setNamedEvents(events) { localStorage.setItem(DIVSPLYT_EVENTS_KEY, JSON.stringify(events)); }
+function cloneCurrentState() { return JSON.parse(JSON.stringify(state)); }
+
+function saveNamedEvent() {
+  ensureUpgradeState();
+  const input = document.getElementById("eventNameInput");
+  const name = String(input ? input.value : "").trim();
+  if (!name) { showError("Enter an event name first."); return; }
+  const events = getNamedEvents();
+  const existing = events.find(event => event.name.toLowerCase() === name.toLowerCase());
+  if (existing) { existing.updatedAt = new Date().toISOString(); existing.state = cloneCurrentState(); }
+  else { events.push({ id: makeId(), name, updatedAt: new Date().toISOString(), state: cloneCurrentState() }); }
+  setNamedEvents(events);
+  refreshEventSelect(name);
+  showSuccess(`Event saved: ${name}`);
+}
+
+function loadNamedEvent() {
+  const select = document.getElementById("eventSelect");
+  const selectedId = select ? select.value : "";
+  if (!selectedId) { showError("Select an event to load."); return; }
+  const event = getNamedEvents().find(item => item.id === selectedId);
+  if (!event) { showError("Selected event was not found."); return; }
+  state = event.state || { participants: [], expenses: [], expandedPayerIds: {} };
+  ensureUpgradeState();
+  clearLastResult();
+  setPage("entry");
+  render();
+  const input = document.getElementById("eventNameInput");
+  if (input) input.value = event.name;
+  showSuccess(`Loaded event: ${event.name}`);
+}
+
+function renameNamedEvent() {
+  const select = document.getElementById("eventSelect");
+  const input = document.getElementById("eventNameInput");
+  const selectedId = select ? select.value : "";
+  const newName = String(input ? input.value : "").trim();
+  if (!selectedId) { showError("Select an event to rename."); return; }
+  if (!newName) { showError("Enter the new event name."); return; }
+  const events = getNamedEvents();
+  const event = events.find(item => item.id === selectedId);
+  if (!event) { showError("Selected event was not found."); return; }
+  event.name = newName;
+  event.updatedAt = new Date().toISOString();
+  setNamedEvents(events);
+  refreshEventSelect(newName);
+  showSuccess(`Event renamed to: ${newName}`);
+}
+
+function deleteNamedEvent() {
+  const select = document.getElementById("eventSelect");
+  const selectedId = select ? select.value : "";
+  if (!selectedId) { showError("Select an event to delete."); return; }
+  const events = getNamedEvents();
+  const event = events.find(item => item.id === selectedId);
+  if (!event) { showError("Selected event was not found."); return; }
+  const ok = confirm(`Delete saved event "${event.name}"?`);
+  if (!ok) return;
+  setNamedEvents(events.filter(item => item.id !== selectedId));
+  refreshEventSelect();
+  showSuccess("Event deleted.");
+}
+
+function refreshEventSelect(preferredName) {
+  const select = document.getElementById("eventSelect");
+  if (!select) return;
+  const events = getNamedEvents().sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+  select.innerHTML = `<option value="">Select saved event</option>${events.map(event => `<option value="${event.id}">${escapeHtml(event.name)}</option>`).join("")}`;
+  if (preferredName) { const found = events.find(event => event.name === preferredName); if (found) select.value = found.id; }
+  select.onchange = function () { const event = events.find(item => item.id === this.value); const input = document.getElementById("eventNameInput"); if (event && input) input.value = event.name; };
+}
+
+function getParticipantTemplates() { try { return JSON.parse(localStorage.getItem(DIVSPLYT_TEMPLATES_KEY) || "[]"); } catch (error) { return []; } }
+function setParticipantTemplates(templates) { localStorage.setItem(DIVSPLYT_TEMPLATES_KEY, JSON.stringify(templates)); }
+
+function saveParticipantTemplate() {
+  const input = document.getElementById("templateNameInput");
+  const name = String(input ? input.value : "").trim();
+  if (!name) { showError("Enter a template name first."); return; }
+  if (state.participants.length === 0) { showError("Add participants before saving a template."); return; }
+  const templates = getParticipantTemplates();
+  const participantNames = state.participants.map(person => person.name.trim()).filter(Boolean);
+  const existing = templates.find(template => template.name.toLowerCase() === name.toLowerCase());
+  if (existing) { existing.names = participantNames; existing.updatedAt = new Date().toISOString(); }
+  else { templates.push({ id: makeId(), name, names: participantNames, updatedAt: new Date().toISOString() }); }
+  setParticipantTemplates(templates);
+  refreshTemplateSelect(name);
+  showSuccess(`Template saved: ${name}`);
+}
+
+function loadParticipantTemplate() {
+  const select = document.getElementById("templateSelect");
+  const selectedId = select ? select.value : "";
+  if (!selectedId) { showError("Select a template to load."); return; }
+  const template = getParticipantTemplates().find(item => item.id === selectedId);
+  if (!template) { showError("Selected template was not found."); return; }
+  const ok = state.participants.length > 0 || state.expenses.length > 0 ? confirm("Loading this template will replace current participants and clear current expenses. Continue?") : true;
+  if (!ok) return;
+  state.participants = template.names.map(name => ({ id: makeId(), name }));
+  state.expenses = [];
+  state.expandedPayerIds = {};
+  state.paymentStatus = {};
+  clearLastResult();
+  setPage("entry");
+  render();
+  const input = document.getElementById("templateNameInput");
+  if (input) input.value = template.name;
+  showSuccess(`Loaded template: ${template.name}`);
+}
+
+function deleteParticipantTemplate() {
+  const select = document.getElementById("templateSelect");
+  const selectedId = select ? select.value : "";
+  if (!selectedId) { showError("Select a template to delete."); return; }
+  const templates = getParticipantTemplates();
+  const template = templates.find(item => item.id === selectedId);
+  if (!template) { showError("Selected template was not found."); return; }
+  const ok = confirm(`Delete participant template "${template.name}"?`);
+  if (!ok) return;
+  setParticipantTemplates(templates.filter(item => item.id !== selectedId));
+  refreshTemplateSelect();
+  showSuccess("Template deleted.");
+}
+
+function refreshTemplateSelect(preferredName) {
+  const select = document.getElementById("templateSelect");
+  if (!select) return;
+  const templates = getParticipantTemplates().sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+  select.innerHTML = `<option value="">Select saved template</option>${templates.map(template => `<option value="${template.id}">${escapeHtml(template.name)}</option>`).join("")}`;
+  if (preferredName) { const found = templates.find(template => template.name === preferredName); if (found) select.value = found.id; }
+  select.onchange = function () { const template = templates.find(item => item.id === this.value); const input = document.getElementById("templateNameInput"); if (template && input) input.value = template.name; };
+}
+
+function downloadPDFReport() {
+  if (!lastPeople.length || !lastSettlement) {
+    calculate();
+    if (!lastPeople.length || !lastSettlement) return;
+  }
+  const reportWindow = window.open("", "_blank");
+  if (!reportWindow) { showError("Popup blocked. Allow popups to download PDF."); return; }
+  reportWindow.document.open();
+  reportWindow.document.write(buildPDFReportHtml());
+  reportWindow.document.close();
+  reportWindow.onload = function () { reportWindow.focus(); reportWindow.print(); };
+}
+
+function buildPDFReportHtml() {
+  const matrixHtml = document.getElementById("settlementOutput") ? document.getElementById("settlementOutput").innerHTML : "";
+  const instructionsHtml = document.getElementById("instructionsOutput") ? document.getElementById("instructionsOutput").innerHTML : "";
+  const summaryHtml = `<div class="summary-grid"><div><b>Total Expense</b><br>${formatMoney(lastTotalExpense, false)}</div><div><b>People</b><br>${lastPeople.length}</div><div><b>Transactions</b><br>${lastTransactions.length}</div></div>`;
+  return `<!DOCTYPE html><html><head><title>DivSplyt Report</title><style>body{font-family:Arial,sans-serif;color:#111827;margin:28px;line-height:1.45}h1{margin:0 0 4px;letter-spacing:2px}h2{margin:28px 0 10px;border-bottom:2px solid #e5e7eb;padding-bottom:6px}h3{margin:16px 0 6px}.muted{color:#6b7280}.box{border:1px solid #d1d5db;border-radius:10px;padding:12px;margin:10px 0;break-inside:avoid}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.summary-grid div{border:1px solid #d1d5db;border-radius:10px;padding:12px}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{border:1px solid #d1d5db;padding:8px;text-align:center}th:first-child,td:first-child{text-align:left}th{background:#eff6ff}ol{padding-left:22px}@media print{button{display:none}body{margin:18mm}}</style></head><body><h1>DIVSPLYT</h1><div class="muted">Expense settlement report</div><h2>1. Expenses by User</h2>${buildPdfExpenseSections()}<h2>2. Expense Breakdown</h2>${buildPdfBreakdownSections()}<h2>3. Settlement Matrix</h2>${matrixHtml}<h2>4. Summary</h2>${summaryHtml}<h2>5. Final Payment Instructions</h2>${instructionsHtml}<script>window.addEventListener("afterprint",function(){window.close();});<\/script></body></html>`;
+}
+
+function buildPdfExpenseSections() {
+  if (!state.expenses.length) return `<p>No expenses entered.</p>`;
+  const payerIds = [...new Set(state.expenses.map(expense => expense.payerId))];
+  return payerIds.map(payerId => {
+    const payer = state.participants.find(person => person.id === payerId);
+    const expenses = state.expenses.filter(expense => expense.payerId === payerId);
+    const items = expenses.map(expense => { const included = expense.splitIds.map(id => state.participants.find(person => person.id === id)).filter(Boolean).map(person => person.name).join(", "); return `<div class="box"><b>${escapeHtml(expense.title || "Untitled Expense")}</b> - ${formatMoney(Number(expense.amount) || 0, false)}<br><span class="muted">Included:</span> ${escapeHtml(included || "None")}</div>`; }).join("");
+    return `<h3>${escapeHtml(payer ? payer.name : "Unknown")}</h3>${items}`;
+  }).join("");
+}
+
+function buildPdfBreakdownSections() {
+  if (!state.expenses.length) return `<p>No expenses entered.</p>`;
+  return state.expenses.map((expense, index) => {
+    const payer = state.participants.find(person => person.id === expense.payerId);
+    const included = expense.splitIds.map(id => state.participants.find(person => person.id === id)).filter(Boolean).map(person => person.name);
+    const excluded = state.participants.filter(person => !expense.splitIds.includes(person.id)).map(person => person.name);
+    const amount = Number(expense.amount) || 0;
+    const perPerson = expense.splitIds.length ? amount / expense.splitIds.length : 0;
+    return `<div class="box"><b>${index + 1}. ${escapeHtml(expense.title || "Untitled Expense")}</b><br>Paid by: ${escapeHtml(payer ? payer.name : "Unknown")}<br>Amount: ${formatMoney(amount, false)}<br>Included: ${escapeHtml(included.join(", ") || "None")}<br>Excluded: ${escapeHtml(excluded.join(", ") || "None")}<br>Share per included person: ${formatMoney(perPerson, false)}</div>`;
+  }).join("");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  ensureUpgradeState();
+  injectUpgradeControls();
+  render();
+});
+</script>
+
+</body>
+</html>
