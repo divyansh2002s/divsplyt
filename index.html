@@ -3368,5 +3368,268 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
+<!-- DivSplyt participant CSV upload add-on
+     Paste this complete block immediately BEFORE the closing </body> tag. -->
+<script>
+(function () {
+  "use strict";
+
+  const CSV_IMPORT_ID = "divsplytCsvParticipantImport";
+  const CSV_STYLE_ID = "divsplytCsvParticipantImportStyles";
+
+  function initParticipantCsvImport() {
+    if (document.getElementById(CSV_IMPORT_ID)) return;
+
+    const participantsCard = document.querySelector("#entryPage .top-grid > section:first-child .card:first-child");
+    const participantsList = document.getElementById("participantsList");
+
+    if (!participantsCard || !participantsList) {
+      console.error("DivSplyt CSV import: Participants section was not found.");
+      return;
+    }
+
+    addCsvImportStyles();
+
+    const panel = document.createElement("div");
+    panel.id = CSV_IMPORT_ID;
+    panel.className = "ds-csv-import";
+    panel.innerHTML = `
+      <div class="ds-csv-import-copy">
+        <b>Upload Participants from CSV</b>
+        <span>Only column A is read. Cell A1 should be <b>Name</b>.</span>
+      </div>
+
+      <div class="ds-csv-import-actions">
+        <input
+          id="participantsCsvFile"
+          type="file"
+          accept=".csv,text/csv"
+          hidden
+        />
+        <button type="button" id="chooseParticipantsCsvBtn" class="btn-primary">
+          Upload CSV
+        </button>
+        <button type="button" id="downloadParticipantsCsvTemplateBtn" class="btn-light">
+          Download CSV Template
+        </button>
+      </div>
+
+      <div id="participantsCsvStatus" class="small-text ds-csv-status"></div>
+    `;
+
+    participantsCard.insertBefore(panel, participantsList);
+
+    const fileInput = document.getElementById("participantsCsvFile");
+    const chooseButton = document.getElementById("chooseParticipantsCsvBtn");
+    const templateButton = document.getElementById("downloadParticipantsCsvTemplateBtn");
+
+    chooseButton.addEventListener("click", function () {
+      fileInput.click();
+    });
+
+    templateButton.addEventListener("click", downloadParticipantsCsvTemplate);
+    fileInput.addEventListener("change", importParticipantsCsv);
+  }
+
+  function addCsvImportStyles() {
+    if (document.getElementById(CSV_STYLE_ID)) return;
+
+    const style = document.createElement("style");
+    style.id = CSV_STYLE_ID;
+    style.textContent = `
+      .ds-csv-import {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        padding: 14px;
+        border: 1px dashed var(--border);
+        border-radius: 12px;
+        background: var(--soft-blue);
+      }
+
+      .ds-csv-import-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        line-height: 1.4;
+      }
+
+      .ds-csv-import-copy span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .ds-csv-import-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .ds-csv-status {
+        margin-top: 10px;
+        overflow-wrap: anywhere;
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  async function importParticipantsCsv(event) {
+    const input = event.target;
+    const file = input.files && input.files[0];
+    const status = document.getElementById("participantsCsvStatus");
+
+    if (!file) return;
+
+    if (!/\.csv$/i.test(file.name)) {
+      showError("Please upload a CSV file only.");
+      if (status) status.textContent = "";
+      input.value = "";
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      const names = parseFirstCsvColumn(text);
+
+      if (names.length === 0) {
+        showError("No participant names were found in column A.");
+        if (status) status.textContent = `${file.name}: no names found.`;
+        return;
+      }
+
+      const existingNames = new Set(
+        state.participants.map(function (person) {
+          return String(person.name || "").trim().toLowerCase();
+        })
+      );
+
+      const namesSeenInFile = new Set();
+      const addedNames = [];
+      const skippedNames = [];
+
+      names.forEach(function (rawName) {
+        const name = String(rawName || "").trim();
+        const normalizedName = name.toLowerCase();
+
+        if (!name || existingNames.has(normalizedName) || namesSeenInFile.has(normalizedName)) {
+          if (name) skippedNames.push(name);
+          return;
+        }
+
+        namesSeenInFile.add(normalizedName);
+        existingNames.add(normalizedName);
+
+        const person = {
+          id: makeId(),
+          name: name
+        };
+
+        state.participants.push(person);
+
+        state.expenses.forEach(function (expense) {
+          if (!Array.isArray(expense.splitIds)) expense.splitIds = [];
+          if (!expense.splitIds.includes(person.id)) expense.splitIds.push(person.id);
+        });
+
+        addedNames.push(name);
+      });
+
+      if (addedNames.length === 0) {
+        showError("No new participants were added. All names were blank or duplicates.");
+        if (status) status.textContent = `${file.name}: ${skippedNames.length} duplicate or blank row(s) skipped.`;
+        return;
+      }
+
+      resetResultAfterEdit();
+      renderPreserveScroll();
+
+      const skippedMessage = skippedNames.length
+        ? ` ${skippedNames.length} duplicate or blank row(s) skipped.`
+        : "";
+
+      showSuccess(`${addedNames.length} participant(s) imported.${skippedMessage}`);
+
+      if (status) {
+        status.textContent = `${file.name}: ${addedNames.length} added.${skippedMessage}`;
+      }
+    } catch (error) {
+      console.error(error);
+      showError("The CSV file could not be read.");
+      if (status) status.textContent = `${file.name}: import failed.`;
+    } finally {
+      input.value = "";
+    }
+  }
+
+  function parseFirstCsvColumn(csvText) {
+    const text = String(csvText || "").replace(/^\uFEFF/, "");
+    const rows = text.split(/\r?\n/);
+    const names = [];
+
+    rows.forEach(function (row, rowIndex) {
+      if (!row.trim()) return;
+
+      const firstValue = readFirstCsvValue(row).trim();
+
+      if (!firstValue) return;
+      if (rowIndex === 0 && firstValue.toLowerCase() === "name") return;
+
+      names.push(firstValue);
+    });
+
+    return names;
+  }
+
+  function readFirstCsvValue(row) {
+    let value = "";
+    let insideQuotes = false;
+
+    for (let index = 0; index < row.length; index += 1) {
+      const character = row[index];
+      const nextCharacter = row[index + 1];
+
+      if (character === '"') {
+        if (insideQuotes && nextCharacter === '"') {
+          value += '"';
+          index += 1;
+        } else {
+          insideQuotes = !insideQuotes;
+        }
+        continue;
+      }
+
+      if (!insideQuotes && (character === "," || character === ";" || character === "\t")) {
+        break;
+      }
+
+      value += character;
+    }
+
+    return value;
+  }
+
+  function downloadParticipantsCsvTemplate() {
+    const csvContent = "\uFEFFName\r\nDiv\r\nSam\r\nWam\r\n";
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "DivSplyt_participants_template.csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initParticipantCsvImport);
+  } else {
+    initParticipantCsvImport();
+  }
+})();
+</script>
 </body>
 </html>
